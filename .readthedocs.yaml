@@ -3,9 +3,6 @@ version: 2
 sphinx:
   configuration: docs/conf.py
 
-formas:
-  - pdf
-
 python:
   version: "3.7"
   system_packages: true

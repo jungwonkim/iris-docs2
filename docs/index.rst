@@ -16,7 +16,7 @@ Building and Installing IRIS
 
 .. code-block:: bash
 
-		$ git clone https://github.com/ornl/iris.git
+		$ git clone https://github.com/jungwonkim/iris.git
 		$ cd iris
 		$ mkdir build
 		$ cd build

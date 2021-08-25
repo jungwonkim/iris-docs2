@@ -5,7 +5,7 @@ systems (e.g., OpenMP, CUDA, HIP, Level Zero, OpenCL, Hexagon) simultaneously in
 
 <img src="https://raw.githubusercontent.com/jungwonkim/iris/main/docs/iris.png" width="90%">
 
-IRIS is open source software. You may freely distribute it under the terms of the license agreement found in LICENSE.txt.
+IRIS is open source software. You may freely distribute it under the terms of the license agreement found in LICENSE.
 
 ### The IRIS source code will be available at this repository on September 2021.
 

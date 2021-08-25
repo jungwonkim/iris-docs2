@@ -1,0 +1,12 @@
+#ifndef IRIS_SRC_RT_CONFIG_H
+#define IRIS_SRC_RT_CONFIG_H
+
+#define IRIS_VERSION_MAJOR        @IRIS_VERSION_MAJOR@
+#define IRIS_VERSION_MINOR        @IRIS_VERSION_MINOR@
+#define IRIS_VERSION_PATCH        @IRIS_VERSION_PATCH@
+
+#include <iris/iris.h>
+#include <stddef.h>
+
+#endif /* IRIS_RC_RT_CONFIG_H */
+

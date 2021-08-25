@@ -1,0 +1,7 @@
+#ifndef IRIS_INCLUDE_IRIS_IRIS_ERRNO_H
+#define IRIS_INCLUDE_IRIS_IRIS_ERRNO_H
+
+#define IRIS_SUCCESS          0
+#define IRIS_ERR              8
+
+#endif /* IRIS_INCLUDE_IRIS_IRIS_ERRNO_H */

@@ -1,0 +1,1 @@
+iris_test(test01_init_finalize)

@@ -14,6 +14,8 @@ char iris_log_prefix_[256];
 Platform::Platform() {
   init_ = false;
   finalize_ = false;
+  nplatforms_ = 0;
+  ndevs_ = 0;
 
   timer_ = NULL;
 
@@ -65,6 +67,7 @@ int Platform::EnvironmentGet(const char* key, char** value, size_t* vallen) {
 }
 
 int Platform::PlatformCount(int* nplatforms) {
+  if (nplatforms) *nplatforms = nplatforms_;
   return IRIS_SUCCESS;
 }
 
@@ -77,6 +80,7 @@ int Platform::PlatformBuildProgram(int model, char* path) {
 }
 
 int Platform::DeviceCount(int* ndevs) {
+  if (ndevs) *ndevs = ndevs_;
   return IRIS_SUCCESS;
 }
 

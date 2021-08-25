@@ -14,7 +14,14 @@ endif()
 
 set(IRIS_RUNTIME_SOURCES
   CAPI.cpp
+  Command.cpp
+  Device.cpp
+  Kernel.cpp
+  Mem.cpp
   Platform.cpp
+  Releasable.cpp
+  Task.cpp
+  Thread.cpp
   Timer.cpp
   Utils.cpp
   )

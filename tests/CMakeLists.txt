@@ -9,4 +9,6 @@ macro(iris_test arg)
 endmacro(iris_test)
 
 add_subdirectory(01_init_finalize)
-add_subdirectory(02_task_depend)
+add_subdirectory(02_platform_info)
+add_subdirectory(03_device_info)
+add_subdirectory(04_task_create)

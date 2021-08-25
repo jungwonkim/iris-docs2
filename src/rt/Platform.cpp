@@ -1,6 +1,7 @@
 #include "Platform.h"
 #include "Debug.h"
 #include "Utils.h"
+#include "Task.h"
 #include "Timer.h"
 #include <unistd.h>
 #include <algorithm>
@@ -91,51 +92,58 @@ int Platform::PolicyRegister(const char* lib, const char* name, void* params) {
   return IRIS_SUCCESS;
 }
 
-int Platform::MemCreate(size_t size, iris_mem* brs_mem) {
+int Platform::MemCreate(size_t size, iris_mem* struct_mem) {
   return IRIS_SUCCESS;
 }
 
-int Platform::MemRelease(iris_mem brs_mem) {
+int Platform::MemRelease(iris_mem struct_mem) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskCreate(const char* name, bool perm, iris_task* brs_task) {
+int Platform::TaskCreate(const char* name, bool perm, iris_task* struct_task) {
+  Task* task = Task::Create(this);
+  *struct_task = task->struct_obj();
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskDepend(iris_task brs_task, int ntasks, iris_task* brs_tasks) {
-  return IRIS_ERR;
-}
-
-int Platform::TaskH2D(iris_task brs_task, iris_mem brs_mem, size_t off, size_t size, void* host) {
+int Platform::TaskDepend(iris_task struct_task, int ntasks, iris_task* struct_tasks) {
+  Task* task = struct_task->class_obj;
+  for (int i = 0; i < ntasks; i++)
+    task->AddDepend(struct_tasks[i]->class_obj);
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskD2H(iris_task brs_task, iris_mem brs_mem, size_t off, size_t size, void* host) {
+int Platform::TaskH2D(iris_task struct_task, iris_mem struct_mem, size_t off, size_t size, void* host) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskH2DFull(iris_task brs_task, iris_mem brs_mem, void* host) {
+int Platform::TaskD2H(iris_task struct_task, iris_mem struct_mem, size_t off, size_t size, void* host) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskD2HFull(iris_task brs_task, iris_mem brs_mem, void* host) {
+int Platform::TaskH2DFull(iris_task struct_task, iris_mem struct_mem, void* host) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskSubmit(iris_task brs_task, int brs_policy, const char* opt, int sync) {
+int Platform::TaskD2HFull(iris_task struct_task, iris_mem struct_mem, void* host) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskWait(iris_task brs_task) {
+int Platform::TaskSubmit(iris_task struct_task, int policy, const char* opt, int sync) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskWaitAll(int ntasks, iris_task* brs_tasks) {
+int Platform::TaskWait(iris_task struct_task) {
   return IRIS_SUCCESS;
 }
 
-int Platform::TaskRelease(iris_task brs_task) {
+int Platform::TaskWaitAll(int ntasks, iris_task* struct_tasks) {
+  return IRIS_SUCCESS;
+}
+
+int Platform::TaskRelease(iris_task struct_task) {
+  Task* task = struct_task->class_obj;
+  task->Release();
   return IRIS_SUCCESS;
 }
 

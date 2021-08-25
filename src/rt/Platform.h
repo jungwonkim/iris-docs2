@@ -14,6 +14,7 @@
 namespace iris {
 namespace rt {
 
+class Device;
 class Timer;
 
 class Platform {
@@ -56,6 +57,10 @@ public:
 
   int TimerNow(double* time);
 
+  int ndevs() { return ndevs_; }
+  Device** devs() { return devs_; }
+  Device* dev(int devno) { return devs_[devno]; }
+
 private:
 
 public:
@@ -64,6 +69,11 @@ public:
 private:
   bool init_;
   bool finalize_;
+
+  char platforms_[IRIS_MAX_NPLATFORMS][64];
+  int nplatforms_;
+  Device* devs_[IRIS_MAX_NDEVS];
+  int ndevs_;
 
   pthread_mutex_t mutex_;
 
@@ -82,3 +92,4 @@ private:
 } /* namespace iris */
 
 #endif /* IRIS_SRC_RT_PLATFORM_H */
+

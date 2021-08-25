@@ -1,0 +1,1 @@
+iris_test(test03_device_info)

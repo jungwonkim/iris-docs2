@@ -1,0 +1,1 @@
+iris_test(test02_platform_info)

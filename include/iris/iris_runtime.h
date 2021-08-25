@@ -41,13 +41,14 @@ extern "C" {
 #define iris_float              (1 << 4)
 #define iris_double             (1 << 5)
 
-#define iris_platform           0x1001
-#define iris_vendor             0x1002
-#define iris_name               0x1003
-#define iris_type               0x1004
+#define iris_info_platform      0x1001
+#define iris_info_vendor        0x1002
+#define iris_info_name          0x1003
+#define iris_info_type          0x1004
 
-typedef struct _iris_task*      iris_task;
+typedef struct _iris_kernel*    iris_kernel;
 typedef struct _iris_mem*       iris_mem;
+typedef struct _iris_task*      iris_task;
 
 extern int iris_init(int* argc, char*** argv, int sync);
 extern int iris_finalize();

@@ -1,4 +1,4 @@
-#include "iris_assert.h"
+#include "iris_test.h"
 #include <iris/iris.h>
 #include <stdio.h>
 #include <stdlib.h>

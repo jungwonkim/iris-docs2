@@ -13,7 +13,7 @@ namespace rt {
 
 void Utils::Logo(bool color) {
   if (color) {
-    srand(time(NULL));
+    srand(time(nullptr));
     char str[12];
     sprintf(str, "\x1b[%d;3%dm", rand() & 1, rand() % 8 + 1);
     printf("%s", str);
@@ -50,7 +50,7 @@ int Utils::ReadFile(char* path, char** string, size_t* len) {
 }
 
 void Utils::Datetime(char* str) {
-  time_t t = time(NULL);
+  time_t t = time(nullptr);
   struct tm* tm = localtime(&t);
   strftime(str, 256, "%Y%m%d%H%M%S", tm);
 }

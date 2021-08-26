@@ -19,11 +19,14 @@ set(IRIS_RUNTIME_SOURCES
   Kernel.cpp
   Mem.cpp
   Platform.cpp
+  QueueReady.cpp
+  QueueTask.cpp
   Releasable.cpp
   Task.cpp
   Thread.cpp
   Timer.cpp
   Utils.cpp
+  Worker.cpp
   )
 
 set(IRIS_RUNTIME_HEADERS

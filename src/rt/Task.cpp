@@ -1,25 +1,27 @@
 #include "Task.h"
 #include "Debug.h"
+#include "Command.h"
 #include "Device.h"
 
 namespace iris {
 namespace rt {
 
-Task::Task(Platform* platform) {
-  ncmds_ = 0;
+Task::Task(Platform* platform, int type) {
   platform_ = platform;
-  dev_ = NULL;
-  depends_ = NULL;
+  type_ = type;
+  ncmds_ = 0;
+  dev_ = nullptr;
+  depends_ = nullptr;
   depends_max_ = IRIS_MAX_NCMDS;
   ndepends_ = 0;
   status_ = IRIS_NONE;
 
-  pthread_mutex_init(&mutex_complete_, NULL);
-  pthread_cond_init(&cond_complete_, NULL);
+  pthread_mutex_init(&mutex_complete_, nullptr);
+  pthread_cond_init(&cond_complete_, nullptr);
 }
 
 Task::~Task() {
-//  for (int i = 0; i < ncmds_; i++) delete cmds_[i];
+  for (int i = 0; i < ncmds_; i++) delete cmds_[i];
   for (int i = 0; i < ndepends_; i++) depends_[i]->Release();
   if (depends_) delete depends_;
 
@@ -58,7 +60,7 @@ void Task::Wait() {
 }
 
 void Task::AddDepend(Task* task) {
-  if (depends_ == NULL) depends_ = new Task*[depends_max_];
+  if (depends_ == nullptr) depends_ = new Task*[depends_max_];
   for (int i = 0; i < ndepends_; i++) if (task == depends_[i]) return;
   if (ndepends_ == depends_max_ - 1) {
     Task** old = depends_;

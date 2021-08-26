@@ -12,10 +12,10 @@ Mem::Mem(size_t size, Platform* platform) {
   platform_ = platform;
   ndevs_ = platform->ndevs();
   for (int i = 0; i < ndevs_; i++) {
-    archs_[i] = NULL;
-    archs_dev_[i] = platform->dev(i);
+    archs_[i] = nullptr;
+    archs_dev_[i] = platform->device(i);
   }
-  pthread_mutex_init(&mutex_, NULL);
+  pthread_mutex_init(&mutex_, nullptr);
 }
 
 Mem::~Mem() {
@@ -27,7 +27,7 @@ Mem::~Mem() {
 
 void* Mem::arch(Device* dev) {
   int devno = dev->devno();
-  if (archs_[devno] == NULL) dev->MemAlloc(archs_ + devno, size_);
+  if (archs_[devno] == nullptr) dev->MemAlloc(archs_ + devno, size_);
   return archs_[devno];
 }
 

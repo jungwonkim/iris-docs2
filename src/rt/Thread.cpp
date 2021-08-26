@@ -5,7 +5,7 @@ namespace iris {
 namespace rt {
 
 Thread::Thread() {
-  thread_ = (pthread_t) NULL;
+  thread_ = (pthread_t) nullptr;
   running_ = false;
   sem_init(&sem_, 0, 0);
 }
@@ -18,15 +18,15 @@ Thread::~Thread() {
 void Thread::Start() {
   if (thread_) return;
   running_ = true;
-  pthread_create(&thread_, NULL, &Thread::ThreadFunc, this);
+  pthread_create(&thread_, nullptr, &Thread::ThreadFunc, this);
 }
 
 void Thread::Stop() {
   if (!thread_) return;
   running_ = false;
   Invoke();
-  pthread_join(thread_, NULL);
-  thread_ = (pthread_t) NULL;
+  pthread_join(thread_, nullptr);
+  thread_ = (pthread_t) nullptr;
 }
 
 void Thread::Sleep() {
@@ -39,7 +39,7 @@ void Thread::Invoke() {
 
 void* Thread::ThreadFunc(void* argp) {
   ((Thread*) argp)->Run();
-  return NULL;
+  return nullptr;
 }
 
 } /* namespace rt */

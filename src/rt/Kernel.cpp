@@ -12,8 +12,8 @@ Kernel::Kernel(const char* name, Platform* platform) {
   name_[len] = 0;
   platform_ = platform;
   for (int i = 0; i < IRIS_MAX_NDEVS; i++) {
-    archs_[i] = NULL;
-    archs_devs_[i] = NULL;
+    archs_[i] = nullptr;
+    archs_devs_[i] = nullptr;
   }
 }
 
@@ -25,7 +25,7 @@ void Kernel::SetArg(int idx, size_t size, void* value) {
   KernelArg* arg = new KernelArg;
   arg->size = size;
   if (value) memcpy(arg->value, value, size);
-  arg->mem = NULL;
+  arg->mem = nullptr;
   arg->off = 0;
   args_[idx] = arg;
 }
@@ -50,7 +50,7 @@ std::map<int, KernelArg*>* Kernel::ExportArgs() {
     } else {
       new_arg->size = arg->size; 
       memcpy(new_arg->value, arg->value, arg->size);
-      new_arg->mem = NULL;
+      new_arg->mem = nullptr;
       new_arg->off = 0;
     }
     (*new_args)[I->first] = new_arg;
@@ -60,7 +60,7 @@ std::map<int, KernelArg*>* Kernel::ExportArgs() {
 
 void* Kernel::arch(Device* dev) {
   int devno = dev->devno();
-  if (archs_[devno] == NULL) dev->KernelGet(archs_ + devno, (const char*) name_);
+  if (archs_[devno] == nullptr) dev->KernelGet(archs_ + devno, (const char*) name_);
   return archs_[devno];
 }
 

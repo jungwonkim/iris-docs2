@@ -12,6 +12,9 @@
 #define IRIS_QUEUED         0x3
 #define IRIS_NONE           0x4
 
+#define IRIS_TASK           0x0
+#define IRIS_MARKER         0x1
+
 #define IRIS_MAX_NCMDS      64
 #define IRIS_MAX_NDEPENDS   64
 
@@ -23,7 +26,7 @@ class Device;
 
 class Task: public Releasable<struct _iris_task, Task> {
 public:
-  Task(Platform* platform);
+  Task(Platform* platform, int type = IRIS_TASK);
   virtual ~Task();
 
   bool AddCommand(Command* cmd);
@@ -36,12 +39,15 @@ public:
   void Complete();
   void Wait();
 
+  int type() const { return type_; }
   Platform* platform() { return platform_; }
   int status() const { return status_; }
+  bool marker() const { return type_ == IRIS_MARKER; }
 
 private:
   Platform* platform_;
 
+  int type_;
   int ncmds_;
   Command* cmds_[64];
   Device* dev_;

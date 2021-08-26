@@ -17,9 +17,9 @@ Platform::Platform() {
   nplatforms_ = 0;
   ndevs_ = 0;
 
-  timer_ = NULL;
+  timer_ = nullptr;
 
-  pthread_mutex_init(&mutex_, NULL);
+  pthread_mutex_init(&mutex_, nullptr);
 }
 
 Platform::~Platform() {
@@ -45,6 +45,8 @@ int Platform::Init(int* argc, char*** argv, int sync) {
 
   timer_->Start(IRIS_TIMER_PLATFORM);
 
+  EnvironmentInit();
+
   timer_->Stop(IRIS_TIMER_PLATFORM);
 
   init_ = true;
@@ -58,11 +60,50 @@ int Platform::Synchronize() {
   return IRIS_SUCCESS;
 }
 
+int Platform::EnvironmentInit() {
+  EnvironmentSet("ARCHS", "openmp:cuda:hip:levelzero:hexagon:opencl", false);
+
+  EnvironmentSet("KERNEL_CUDA",     "kernel.ptx",         false);
+  EnvironmentSet("KERNEL_HEXAGON",  "kernel.hexagon.so",  false);
+  EnvironmentSet("KERNEL_HIP",      "kernel.hip",         false);
+  EnvironmentSet("KERNEL_OPENMP",   "kernel.openmp.so",   false);
+  EnvironmentSet("KERNEL_SPV",      "kernel.spv",         false);
+
+  return IRIS_SUCCESS;
+}
+
 int Platform::EnvironmentSet(const char* key, const char* value, bool overwrite) {
+  std::string keystr = std::string(key);
+  std::string valstr = std::string(value);
+  auto I = env_.find(keystr);
+  if (I != env_.end()) {
+    if (!overwrite) {
+      _error("env key[%s] val[%s]", key, value);
+      return IRIS_ERR;
+    }
+    env_.erase(I);
+  }
+  env_.insert(std::pair<std::string, std::string>(keystr, valstr));
   return IRIS_SUCCESS;
 }
 
 int Platform::EnvironmentGet(const char* key, char** value, size_t* vallen) {
+  char env_key[128];
+  sprintf(env_key, "IRIS_%s", key);
+  const char* val = getenv(env_key);
+  if (!val) {
+    std::string keystr = std::string(key);
+    auto I = env_.find(keystr);
+    if (I == env_.end()) {
+      if (vallen) *vallen = 0;
+      return IRIS_ERR;
+    }
+    val = I->second.c_str();
+  }
+
+  if (*value == nullptr) *value = (char*) malloc(strlen(val) + 1);
+  strcpy(*value, val);
+  if (vallen) *vallen = strlen(val) + 1;
   return IRIS_SUCCESS;
 }
 
@@ -72,6 +113,7 @@ int Platform::PlatformCount(int* nplatforms) {
 }
 
 int Platform::PlatformInfo(int platform, int param, void* value, size_t* size) {
+  if (platform >= nplatforms_) return IRIS_ERR;
   return IRIS_SUCCESS;
 }
 
@@ -85,6 +127,7 @@ int Platform::DeviceCount(int* ndevs) {
 }
 
 int Platform::DeviceInfo(int device, int param, void* value, size_t* size) {
+  if (device >= ndevs_) return IRIS_ERR;
   return IRIS_SUCCESS;
 }
 
@@ -156,7 +199,7 @@ int Platform::TimerNow(double* time) {
   return IRIS_SUCCESS;
 }
 
-Platform* Platform::singleton_ = NULL;
+Platform* Platform::singleton_ = nullptr;
 std::once_flag Platform::flag_singleton_;
 std::once_flag Platform::flag_finalize_;
 

@@ -1,4 +1,4 @@
-TEST=test04_task_create
+TEST=test04_environment
 
 include ../Makefile.tests
 

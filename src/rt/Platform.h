@@ -15,7 +15,9 @@ namespace iris {
 namespace rt {
 
 class Device;
+class Scheduler;
 class Timer;
+class Worker;
 
 class Platform {
 private:
@@ -58,8 +60,11 @@ public:
   int TimerNow(double* time);
 
   int ndevs() { return ndevs_; }
-  Device** devs() { return devs_; }
-  Device* dev(int devno) { return devs_[devno]; }
+  Device** devices() { return devs_; }
+  Device* device(int devno) { return devs_[devno]; }
+  Scheduler* scheduler() { return scheduler_; }
+  Worker** workers() { return workers_; }
+  Worker* worker(int i) { return workers_[i]; }
 
 private:
 
@@ -74,6 +79,11 @@ private:
   int nplatforms_;
   Device* devs_[IRIS_MAX_NDEVS];
   int ndevs_;
+
+  Scheduler* scheduler_;
+  Worker* workers_[IRIS_MAX_NDEVS];
+
+  std::map<std::string, std::string> env_;
 
   pthread_mutex_t mutex_;
 

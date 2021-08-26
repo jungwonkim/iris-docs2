@@ -61,7 +61,7 @@ int iris_mem_release(iris_mem mem) {
 }
 
 int iris_task_create(iris_task* task) {
-  return Platform::GetPlatform()->TaskCreate(NULL, false, task);
+  return Platform::GetPlatform()->TaskCreate(nullptr, false, task);
 }
 
 int iris_task_depend(iris_task task, int ntasks, iris_task* tasks) {

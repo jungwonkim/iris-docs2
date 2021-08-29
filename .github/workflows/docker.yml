@@ -10,9 +10,6 @@ on:
     tags:
       - "v*.*.*"
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   push_to_registries:
     name: Push Docker image to multiple registries
@@ -23,16 +20,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-
-      - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-      - name: Installation
-        working-directory: ${{github.workspace}}/build
-        run: make install
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9

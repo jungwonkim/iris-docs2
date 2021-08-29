@@ -1,8 +1,8 @@
-name: Nightly
+name: nightly
 
 on:
   schedule:
-  - cron: "30 8 * * *"
+  - cron: "0 8 * * *"
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

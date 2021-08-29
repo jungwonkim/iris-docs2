@@ -9,5 +9,6 @@ RUN cd /opt &&\
     cd iris &&\
     mkdir build &&\
     cd build &&\
-    cmake .. &&\
+    cmake .. -DCMAKE_BUILD_TYPE=RELEASE&&\
     make -j install
+

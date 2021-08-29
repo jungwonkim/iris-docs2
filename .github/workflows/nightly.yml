@@ -2,11 +2,12 @@ name: Nightly
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+  - cron: "30 8 * * *"
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CDASH_TYPE: Nightly
 
 jobs:
   build:
@@ -32,5 +33,5 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}} -D Nightly
+      run: ctest -C ${{env.BUILD_TYPE}} -D ${{env.CDASH_TYPE}}
       

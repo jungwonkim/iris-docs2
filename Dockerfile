@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
 RUN apt-get update &&\
     apt-get install -y build-essential &&\
@@ -7,7 +7,7 @@ RUN apt-get update &&\
 RUN cd /opt &&\
     git clone https://github.com/jungwonkim/iris.git &&\
     cd iris &&\
-    mkdir iris &&\
+    mkdir build &&\
     cd build &&\
     cmake .. &&\
     make -j install

@@ -42,15 +42,15 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: IRIS Architecture
-
-   architecture.rst
-
-.. toctree::
-   :maxdepth: 2
    :caption: IRIS API Specification
 
    api.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: IRIS Architecture
+
+   architecture.rst
 
 .. toctree::
    :maxdepth: 2

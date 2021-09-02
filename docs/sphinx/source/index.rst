@@ -12,10 +12,9 @@ IRIS is a unified framework across multiple programming platforms. IRIS enables 
 IRIS provides task-based programming and execution models. A task is portable across all the available programming platforms and can be run on any accelerator in the system.
 
 
-.. image:: _images/overview.png
-       :width: 100%
-       :alt: IRIS overview
-       :align: center
+.. figure:: _images/overview.png
+   :width: 100%
+   :align: center
 
 
 .. toctree::

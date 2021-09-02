@@ -37,6 +37,12 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :caption: Getting Started
+
+   started.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: IRIS Architecture
 
    architecture.rst

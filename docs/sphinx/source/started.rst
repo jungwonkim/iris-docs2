@@ -3,7 +3,7 @@
 Hello World
 ==================
 
-Setting the following environment variables are recommended to make life easier.
+Setting the following environment variables is highly recommended to make life easier.
 
 .. code-block:: bash
 

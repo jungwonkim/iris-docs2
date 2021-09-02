@@ -1,0 +1,9 @@
+name: IRIS-docs
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - doxygen=1.9.2
+

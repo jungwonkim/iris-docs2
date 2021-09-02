@@ -5,5 +5,6 @@ channels:
   - defaults
 
 dependencies:
-  - doxygen=1.9.2
+  - pip
+  - breathe=4.30.0
 

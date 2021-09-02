@@ -1,7 +1,7 @@
 version: 2
 
 sphinx:
-  configuration: docs/readthedocs/source/conf.py
+  configuration: docs/sphinx/source/conf.py
 
 conda:
-  environment: docs/readthedocs/environment.yml
+  environment: docs/sphinx/environment.yml

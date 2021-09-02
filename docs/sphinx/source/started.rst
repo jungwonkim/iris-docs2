@@ -56,3 +56,9 @@ Kernels
 
         .. literalinclude:: _code/kernel.omp.h
           :language: c
+
+    .. tab-container:: tab4
+        :title: Hexagon
+
+        .. literalinclude:: _code/kernel.hexagon.c
+          :language: c

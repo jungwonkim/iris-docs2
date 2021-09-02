@@ -1,4 +1,4 @@
-From Source
+Build from Source
 ==================
 
 IRIS uses `CMake (>= 2.8) <https://cmake.org>`_ for building, testing, and installing the library.

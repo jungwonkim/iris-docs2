@@ -14,6 +14,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sphinx_rtd_theme
 import subprocess
 
 # -- Project information -----------------------------------------------------
@@ -32,6 +33,7 @@ author = 'Jungwon Kim'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx_rtd_theme',
     'breathe'
 ]
 

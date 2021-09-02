@@ -34,6 +34,7 @@ author = 'Jungwon Kim'
 # ones.
 extensions = [
     'sphinx_rtd_theme',
+    'sphinxcontrib.contentui',
     'breathe'
 ]
 

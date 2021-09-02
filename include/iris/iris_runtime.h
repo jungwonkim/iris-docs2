@@ -50,8 +50,23 @@ typedef struct _iris_kernel*    iris_kernel;
 typedef struct _iris_mem*       iris_mem;
 typedef struct _iris_task*      iris_task;
 
+/**
+ * Initializes the IRIS execution environment.
+ * @param argc pointer to the number of arguments
+ * @param argv argument vector
+ * @param sync 0: non-blocking, 1: blocking
+ * @return All IRIS functions return an error value (IRIS_SUCCESS or IRIS_ERR)
+ */
 extern int iris_init(int* argc, char*** argv, int sync);
+
+/**
+ * Terminates the IRIS execution environment.
+ */
 extern int iris_finalize();
+
+/**
+ * Waits for all the submitted tasks to complete.
+ */
 extern int iris_synchronize();
 
 extern int iris_env_set(const char* key, const char* value);

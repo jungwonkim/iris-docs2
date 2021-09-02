@@ -32,8 +32,7 @@ author = 'Jungwon Kim'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx_rtd_theme",
-    "breathe"
+    'breathe'
 ]
 
 subprocess.call('cd ../../doxygen/; doxygen Doxyfile.in', shell=True)
@@ -56,13 +55,14 @@ exclude_patterns = []
 #
 #html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
+
 html_theme_options = {
     'analytics_id': '',
     'analytics_anonymize_ip': False,
     'logo_only': False,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
-    'style_external_links': False,
+    'style_external_links': True,
     'vcs_pageview_mode': '',
     'style_nav_header_background': '',
     # Toc options
@@ -78,4 +78,3 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-github_url = 'https://github.com/jungwonkim/iris'

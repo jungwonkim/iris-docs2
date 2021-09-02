@@ -55,7 +55,7 @@ typedef struct _iris_task*      iris_task;
  * @param argc pointer to the number of arguments
  * @param argv argument vector
  * @param sync 0: non-blocking, 1: blocking
- * @return All IRIS functions return an error value (IRIS_SUCCESS or IRIS_ERR)
+ * @return All IRIS functions return an error value (IRIS_SUCCESS or IRIS_ERR).
  */
 extern int iris_init(int* argc, char*** argv, int sync);
 

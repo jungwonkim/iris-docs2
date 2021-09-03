@@ -5,7 +5,7 @@
 
 .. Important::
    THIS IS AN EXPERIMENTAL WEBSITE.
-   The official website is https://github.com/ORNL/iris
+   https://github.com/ORNL/iris is the official website.
 
 IRIS
 ================================

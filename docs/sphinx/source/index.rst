@@ -3,6 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. Important::
+   THIS IS AN EXPERIMENTAL WEBSITE.
+   The official website is https://github.com/ORNL/iris
+
 IRIS
 ================================
 

@@ -13,14 +13,14 @@ Setting the following environment variables is highly recommended to make life e
   $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IRIS/lib:$IRIS/lib64
  
 
-The “Hello World” program is the first step towards learning IRIS. This program displays the message “Hello World” on the screen.
+The “Hello World” program is the first step towards learning IRIS. This program displays the message “HELLO WORLD” on the screen.
 
 .. code-block:: bash
 
   $ cd iris/apps/helloworld
   $ make
   $ ./helloworld
-  Hello World
+  HELLO WORLD
   $
 
 Host Code

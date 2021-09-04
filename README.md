@@ -1,6 +1,3 @@
-THIS IS AN EXPERIMENTAL GIT REPOSITORY.
-https://github.com/ORNL/iris is the official git repository of IRIS.
-
 # IRIS
 
 IRIS is an intelligent runtime system for extremely heterogeneous architectures. IRIS discovers available functionality, manage multiple diverse programming

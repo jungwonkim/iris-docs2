@@ -5,7 +5,7 @@
 Platform Model
 ==================
 
-IRIS's platform model consists of a host connected to one or more compute devices. The host and all compute devices reside in a single-node system. The host can be a multisocket, multicore CPU configuration. A compute device can be a GPU, FPGA, DSP, or even a CPU. A compute device, except for the CPU, communicates with the host and other compute devices via a peripheral interconnect, such as PCI~Express or NVLink.
+IRIS's platform model consists of a host connected to one or more compute devices. The host and all compute devices reside in a single-node system. The host can be a multisocket, multicore CPU configuration. A compute device can be a GPU, FPGA, DSP, or even a CPU. A compute device, except for the CPU, communicates with the host and other compute devices via a peripheral interconnect, such as PCIe or NVLink.
 
 .. figure:: _images/overview.png
    :width: 100%

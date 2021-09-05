@@ -1,4 +1,4 @@
-.. index:: ! architecture, ! platform model
+.. index:: ! hello world
 
 Hello World
 ==================

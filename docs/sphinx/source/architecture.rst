@@ -51,7 +51,7 @@ The application host code submits a task to the application task queue. This tas
 Task
 ==================
 
-An IRIS task contains zero or more commands. There are three types of commands: (1) host-to-device memory copy command, (2) device-to-host memory copy command, and (3) kernel launch command. The commands in a task are executed in a single compute device in a FIFO execution order. A task can have a dependency on other tasks. When a task depends on other tasks, it cannot start until the prerequisite tasks complete.
+IRIS provides task-based programming and execution models. A task is portable across all the available programming platforms and can be run on any accelerator in the system. A task contains zero or more commands. There are three types of commands: (1) host-to-device memory copy command, (2) device-to-host memory copy command, and (3) kernel launch command. The commands in a task are executed in a single compute device in a FIFO execution order. A task can have a dependency on other tasks. When a task depends on other tasks, it cannot start until the prerequisite tasks complete.
 
 .. figure:: _images/task.png
    :width: 100%

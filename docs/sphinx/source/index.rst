@@ -4,29 +4,10 @@
    contain the root `toctree` directive.
 
 IRIS
-================================
+====
 
 IRIS is a unified framework across multiple programming platforms. IRIS enables programmers to write portable programs across diverse heterogeneous architectures from edge to exascale. An IRIS application can exploit multiple programming platforms including CUDA, Hexagon, HIP, Level Zero, OpenCL, and OpenMP at the same time.
 
-
-IRIS provides task-based programming and execution models. A task is portable across all the available programming platforms and can be run on any accelerator in the system.
-
-
-.. figure:: _images/overview.png
-   :width: 100%
-   :align: center
-
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-
-
-Contents
-==================
-
-:ref:`Keyword Index <genindex>`
 
 .. toctree::
    :maxdepth: 2
@@ -57,3 +38,9 @@ Contents
    :caption: Miscellaneous
 
    misc.rst
+
+.. toctree::
+   :hidden:
+
+   genindex
+

@@ -5,7 +5,7 @@ IRIS uses `CMake (>= 2.8) <https://cmake.org>`_ for building, testing, and insta
 
 .. code-block:: bash
    
-  $ git clone git@github.com:jungwonkim/iris.git
+  $ git clone git@github.com:ornl/iris.git
   $ cd iris
   $ mkdir build
   $ cd build

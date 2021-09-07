@@ -52,13 +52,20 @@ Kernels
           :language: c
 
     .. tab-container:: tab3
+        :title: OpenCL
+
+        .. literalinclude:: _code/kernel.cl
+          :language: c
+
+    .. tab-container:: tab4
         :title: OpenMP
 
         .. literalinclude:: _code/kernel.omp.h
           :language: c
 
-    .. tab-container:: tab4
+    .. tab-container:: tab5
         :title: Hexagon
 
         .. literalinclude:: _code/kernel.hexagon.c
           :language: c
+

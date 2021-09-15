@@ -14,21 +14,3 @@ IRIS uses `CMake (>= 2.8) <https://cmake.org>`_ for building, testing, and insta
   $ ctest # Running tests is optional.
   $ make install
 
-.. index:: ! docker
-
-Docker
-==================
-
-.. code-block:: bash
-
-  $ docker pull jungwonkim/iris
-
-.. index:: ! pip, ! pypi
-
-PyPI
-==================
-
-.. code-block:: bash
-
-  $ pip install pyiris
-

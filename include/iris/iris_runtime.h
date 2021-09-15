@@ -46,7 +46,6 @@ extern "C" {
 #define iris_info_name          0x1003
 #define iris_info_type          0x1004
 
-typedef struct _iris_kernel*    iris_kernel;
 typedef struct _iris_mem*       iris_mem;
 typedef struct _iris_task*      iris_task;
 
@@ -242,7 +241,7 @@ extern int iris_task_wait_all(int ntasks, iris_task* tasks);
 extern int iris_task_release(iris_task task);
 
 /**
- * Returns time in seconds now.
+ * Returns current time in seconds.
  * @param time pointer of time
  */
 extern int iris_timer_now(double* time);

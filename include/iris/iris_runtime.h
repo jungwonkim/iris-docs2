@@ -200,6 +200,20 @@ extern int iris_task_h2d_full(iris_task task, iris_mem mem, void* host);
 extern int iris_task_d2h_full(iris_task task, iris_mem mem, void* host);
 
 /**
+ * Launch a kernel
+ * @param task target task
+ * @param kernel kernel name
+ * @param dim dimension
+ * @param off global workitem space offsets
+ * @param gws global workitem space
+ * @param lws local workitem space
+ * @param nparams number of kernel parameters
+ * @param params kernel parameters
+ * @param params_info kernel parameters information
+ */
+extern int iris_task_kernel(iris_task task, const char* kernel, int dim, size_t* off, size_t* gws, size_t* lws, int nparams, void** params, int* params_info);
+
+/**
  * Submits a task.
  * @param task target task
  * @param device device_selector

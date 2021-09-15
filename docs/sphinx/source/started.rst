@@ -11,6 +11,7 @@ Setting the following environment variables is highly recommended to make life e
   $ export CPATH=$CPATH:$IRIS/include
   $ export LIBRARY_PATH=$LIBRARY_PATH:$IRIS/lib:$IRIS/lib64
   $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IRIS/lib:$IRIS/lib64
+  $ export PYTHONPATH=$PYTHONPATH:$IRIS/include
  
 
 The “Hello World” program is the first step towards learning IRIS. This program displays the message “HELLO WORLD” on the screen.
@@ -33,6 +34,12 @@ Host Code
 
         .. literalinclude:: _code/helloworld.c
           :language: c
+
+    .. tab-container:: tab2
+        :title: C++
+
+        .. literalinclude:: _code/helloworld.cpp
+          :language: cpp
 
 Kernels
 -------

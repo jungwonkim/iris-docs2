@@ -32,13 +32,13 @@ Host Code
     .. tab-container:: tab1
         :title: C
 
-        .. literalinclude:: _code/helloworld.c
+        .. literalinclude:: _code/helloworld/helloworld.c
           :language: c
 
     .. tab-container:: tab2
         :title: C++
 
-        .. literalinclude:: _code/helloworld.cpp
+        .. literalinclude:: _code/helloworld/helloworld.cpp
           :language: cpp
 
 Kernels
@@ -49,30 +49,111 @@ Kernels
     .. tab-container:: tab1
         :title: CUDA
 
-        .. literalinclude:: _code/kernel.cu
+        .. literalinclude:: _code/helloworld/kernel.cu
           :language: c
 
     .. tab-container:: tab2
         :title: HIP
 
-        .. literalinclude:: _code/kernel.hip.cpp
+        .. literalinclude:: _code/helloworld/kernel.hip.cpp
           :language: c
 
     .. tab-container:: tab3
         :title: OpenCL
 
-        .. literalinclude:: _code/kernel.cl
+        .. literalinclude:: _code/helloworld/kernel.cl
           :language: c
 
     .. tab-container:: tab4
         :title: OpenMP
 
-        .. literalinclude:: _code/kernel.omp.h
+        .. literalinclude:: _code/helloworld/kernel.omp.h
           :language: c
 
     .. tab-container:: tab5
         :title: Hexagon
 
-        .. literalinclude:: _code/kernel.hexagon.c
+        .. literalinclude:: _code/helloworld/kernel.hexagon.c
+          :language: c
+
+.. index:: ! saxpy
+
+SAXPY
+=====
+
+SAXPY stands for "Single-precision A * X Plus Y". It is a combination of scalar multiplication and vector addition.
+
+.. code-block:: bash
+
+  $ cd iris/apps/saxpy
+  $ make
+  $ ./saxpy-c
+  X [  0.  1.  2.  3.  4.  5.  6.  7.]
+  Y [  0.  1.  2.  3.  4.  5.  6.  7.]
+  S = 10.000000 * X + Y [   0.  11.  22.  33.  44.  55.  66.  77.]
+  $
+
+Host Code
+---------
+
+.. content-tabs::
+
+    .. tab-container:: tab1
+        :title: C
+
+        .. literalinclude:: _code/saxpy/saxpy.c
+          :language: c
+
+    .. tab-container:: tab2
+        :title: C++
+
+        .. literalinclude:: _code/saxpy/saxpy.cpp
+          :language: cpp
+
+    .. tab-container:: tab3
+        :title: Fortran
+
+        .. literalinclude:: _code/saxpy/saxpy.f90
+          :language: fortran
+
+    .. tab-container:: tab4
+        :title: Python
+
+        .. literalinclude:: _code/saxpy/saxpy.py
+          :language: python
+
+Kernels
+-------
+
+.. content-tabs::
+
+    .. tab-container:: tab1
+        :title: CUDA
+
+        .. literalinclude:: _code/saxpy/kernel.cu
+          :language: c
+
+    .. tab-container:: tab2
+        :title: HIP
+
+        .. literalinclude:: _code/saxpy/kernel.hip.cpp
+          :language: c
+
+    .. tab-container:: tab3
+        :title: OpenCL
+
+        .. literalinclude:: _code/saxpy/kernel.cl
+          :language: c
+
+    .. tab-container:: tab4
+        :title: OpenMP
+
+        .. literalinclude:: _code/saxpy/kernel.omp.h
+          :language: c
+
+    .. tab-container:: tab5
+        :title: Hexagon
+
+        .. literalinclude:: _code/saxpy/kernel.hexagon.c
           :language: c
 

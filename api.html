@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C API &mdash; IRIS  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/contentui.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Platform Model" href="architecture.html" />
+    <link rel="prev" title="Hello World" href="started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> IRIS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Build from Source</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Hello World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="started.html#saxpy">SAXPY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">IRIS API Specification</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#cpp-api">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#fortran-api">Fortran API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">IRIS Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Platform Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#memory-model">Memory Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#programming-model">Programming Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#execution-model">Execution Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#task">Task</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Citation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IRIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>C API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-api">
+<span id="id1"></span><h1>C API<a class="headerlink" href="#c-api" title="Permalink to this heading"></a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv48iris_mem">
+<span id="_CPPv38iris_mem"></span><span id="_CPPv28iris_mem"></span><span id="iris_mem"></span><span class="target" id="iris__runtime_8h_1aa63c8801d213f312b2b32e88b2655624"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">_iris_mem</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">iris_mem</span></span></span><a class="headerlink" href="#_CPPv48iris_mem" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv49iris_task">
+<span id="_CPPv39iris_task"></span><span id="_CPPv29iris_task"></span><span id="iris_task"></span><span class="target" id="iris__runtime_8h_1a80046de18521148abe113d1ca472b504"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">_iris_task</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">iris_task</span></span></span><a class="headerlink" href="#_CPPv49iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49iris_initPiPPPci">
+<span id="_CPPv39iris_initPiPPPci"></span><span id="_CPPv29iris_initPiPPPci"></span><span id="iris_init__iP.cPPP.i"></span><span class="target" id="iris__runtime_8h_1a394cd0ae01d48432d615b0fffdcd579e"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">argc</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">argv</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sync</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49iris_initPiPPPci" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initializes the IRIS execution environment. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argc</strong> – pointer to the number of arguments </p></li>
+<li><p><strong>argv</strong> – argument array </p></li>
+<li><p><strong>sync</strong> – 0: non-blocking, 1: blocking </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All IRIS functions return an error value. IRIS_SUCCESS, IRIS_ERR </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413iris_finalizev">
+<span id="_CPPv313iris_finalizev"></span><span id="_CPPv213iris_finalizev"></span><span id="iris_finalize"></span><span class="target" id="iris__runtime_8h_1a7af0f197910eec440923e29ed7cfc4f5"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_finalize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413iris_finalizev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Terminates the IRIS execution environment. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_synchronizev">
+<span id="_CPPv316iris_synchronizev"></span><span id="_CPPv216iris_synchronizev"></span><span id="iris_synchronize"></span><span class="target" id="iris__runtime_8h_1a333b9610839edadbec2882edc425ebdf"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_synchronize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_synchronizev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Waits for all the submitted tasks to complete. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412iris_env_setPKcPKc">
+<span id="_CPPv312iris_env_setPKcPKc"></span><span id="_CPPv212iris_env_setPKcPKc"></span><span id="iris_env_set__cCP.cCP"></span><span class="target" id="iris__runtime_8h_1a0a7eb084e1c7f8b780af8c479856b37f"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_env_set</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412iris_env_setPKcPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets an IRIS environment variable. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – key string </p></li>
+<li><p><strong>value</strong> – value to be stored into key </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412iris_env_getPKcPPcP6size_t">
+<span id="_CPPv312iris_env_getPKcPPcP6size_t"></span><span id="_CPPv212iris_env_getPKcPPcP6size_t"></span><span id="iris_env_get__cCP.cPP.sP"></span><span class="target" id="iris__runtime_8h_1af4709aa3b1e2cef138b7a6681f0ed46f"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_env_get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">vallen</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412iris_env_getPKcPPcP6size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets an IRIS environment variable. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – key string </p></li>
+<li><p><strong>value</strong> – pointer to the value to be retrieved </p></li>
+<li><p><strong>vallen</strong> – size in bytes of value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419iris_platform_countPi">
+<span id="_CPPv319iris_platform_countPi"></span><span id="_CPPv219iris_platform_countPi"></span><span id="iris_platform_count__iP"></span><span class="target" id="iris__runtime_8h_1a0c73fdad36e3eada90e1ba7ae289badf"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_platform_count</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">nplatforms</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419iris_platform_countPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the number of platforms. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nplatforms</strong> – pointer to the number of platform </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418iris_platform_infoiiPvP6size_t">
+<span id="_CPPv318iris_platform_infoiiPvP6size_t"></span><span id="_CPPv218iris_platform_infoiiPvP6size_t"></span><span id="iris_platform_info__i.i.voidP.sP"></span><span class="target" id="iris__runtime_8h_1a0e426bba8a5f05bab32e96d44ad35c20"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_platform_info</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">platform</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">param</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418iris_platform_infoiiPvP6size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the platform information. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>platform</strong> – platform number </p></li>
+<li><p><strong>param</strong> – information type </p></li>
+<li><p><strong>value</strong> – information value </p></li>
+<li><p><strong>size</strong> – size in bytes of value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427iris_platform_build_programiPc">
+<span id="_CPPv327iris_platform_build_programiPc"></span><span id="_CPPv227iris_platform_build_programiPc"></span><span id="iris_platform_build_program__i.cP"></span><span class="target" id="iris__runtime_8h_1a9f5c9780ed50873836598f5b12b5ba6a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_platform_build_program</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427iris_platform_build_programiPc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Builds a probram containing kernels </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – target model </p></li>
+<li><p><strong>path</strong> – file path </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417iris_device_countPi">
+<span id="_CPPv317iris_device_countPi"></span><span id="_CPPv217iris_device_countPi"></span><span id="iris_device_count__iP"></span><span class="target" id="iris__runtime_8h_1a3a98e5b163b74979363b65fa24de0ef0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_device_count</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ndevs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417iris_device_countPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the number of devices. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ndevs</strong> – pointer to the number of devices </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_device_infoiiPvP6size_t">
+<span id="_CPPv316iris_device_infoiiPvP6size_t"></span><span id="_CPPv216iris_device_infoiiPvP6size_t"></span><span id="iris_device_info__i.i.voidP.sP"></span><span class="target" id="iris__runtime_8h_1a3b700aec5d0ec3959f29da86e314a974"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_device_info</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">param</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_device_infoiiPvP6size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the device information. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> – device number </p></li>
+<li><p><strong>param</strong> – information type </p></li>
+<li><p><strong>value</strong> – information value </p></li>
+<li><p><strong>size</strong> – size in bytes of value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423iris_device_synchronizeiPi">
+<span id="_CPPv323iris_device_synchronizeiPi"></span><span id="_CPPv223iris_device_synchronizeiPi"></span><span id="iris_device_synchronize__i.iP"></span><span class="target" id="iris__runtime_8h_1a2ba4d948c0e5be2869d476afe6f5d1af"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_device_synchronize</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ndevs</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">devices</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423iris_device_synchronizeiPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Waits for all the submitted tasks in a device to complete. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndevs</strong> – number of devices </p></li>
+<li><p><strong>devices</strong> – device array </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420iris_register_policyPKcPKcPv">
+<span id="_CPPv320iris_register_policyPKcPKcPv"></span><span id="_CPPv220iris_register_policyPKcPKcPv"></span><span id="iris_register_policy__cCP.cCP.voidP"></span><span class="target" id="iris__runtime_8h_1a7a1b51c8ab2d2aabcb3140186b20e7de"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_register_policy</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lib</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420iris_register_policyPKcPKcPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Registers a new device selector </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – shared library path </p></li>
+<li><p><strong>name</strong> – selector name </p></li>
+<li><p><strong>params</strong> – parameter to the selector init function </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415iris_mem_create6size_tP8iris_mem">
+<span id="_CPPv315iris_mem_create6size_tP8iris_mem"></span><span id="_CPPv215iris_mem_create6size_tP8iris_mem"></span><span id="iris_mem_create__s.iris_memP"></span><span class="target" id="iris__runtime_8h_1a28df0d57a77fbbb45f540a85010cd71e"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_mem_create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415iris_mem_create6size_tP8iris_mem" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Creates a new memory object </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> – size in bytes </p></li>
+<li><p><strong>mem</strong> – pointer of the new memory object </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_mem_release8iris_mem">
+<span id="_CPPv316iris_mem_release8iris_mem"></span><span id="_CPPv216iris_mem_release8iris_mem"></span><span id="iris_mem_release__iris_mem"></span><span class="target" id="iris__runtime_8h_1a0e537b116125aa751d4491ecbfbd96a3"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_mem_release</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_mem_release8iris_mem" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Releases a memory object. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mem</strong> – memory object </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_task_createP9iris_task">
+<span id="_CPPv316iris_task_createP9iris_task"></span><span id="_CPPv216iris_task_createP9iris_task"></span><span id="iris_task_create__iris_taskP"></span><span class="target" id="iris__runtime_8h_1ac43586ca44ca79dc5a09ed97ba2b710b"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_create</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">task</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_task_createP9iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Creates a new task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task</strong> – pointer of the new task </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_task_depend9iris_taskiP9iris_task">
+<span id="_CPPv316iris_task_depend9iris_taskiP9iris_task"></span><span id="_CPPv216iris_task_depend9iris_taskiP9iris_task"></span><span id="iris_task_depend__iris_task.i.iris_taskP"></span><span class="target" id="iris__runtime_8h_1acbf7ec5e7cec211506ef2c4e6351c633"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_depend</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ntasks</span></span>, <a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tasks</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_task_depend9iris_taskiP9iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds a dependency to a task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – source task </p></li>
+<li><p><strong>ntasks</strong> – number of tasks </p></li>
+<li><p><strong>tasks</strong> – target tasks array </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413iris_task_h2d9iris_task8iris_mem6size_t6size_tPv">
+<span id="_CPPv313iris_task_h2d9iris_task8iris_mem6size_t6size_tPv"></span><span id="_CPPv213iris_task_h2d9iris_task8iris_mem6size_t6size_tPv"></span><span id="iris_task_h2d__iris_task.iris_mem.s.s.voidP"></span><span class="target" id="iris__runtime_8h_1a5184540fd854bb4d5df434e9dfe79f12"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_h2d</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mem</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">off</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">host</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413iris_task_h2d9iris_task8iris_mem6size_t6size_tPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds a H2D command to the target task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>mem</strong> – target memory object </p></li>
+<li><p><strong>off</strong> – offset in bytes </p></li>
+<li><p><strong>size</strong> – size in bytes </p></li>
+<li><p><strong>host</strong> – source host address </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413iris_task_d2h9iris_task8iris_mem6size_t6size_tPv">
+<span id="_CPPv313iris_task_d2h9iris_task8iris_mem6size_t6size_tPv"></span><span id="_CPPv213iris_task_d2h9iris_task8iris_mem6size_t6size_tPv"></span><span id="iris_task_d2h__iris_task.iris_mem.s.s.voidP"></span><span class="target" id="iris__runtime_8h_1a2156cc25eaa9387cc7cdde79dd7f7391"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_d2h</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mem</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">off</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">host</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413iris_task_d2h9iris_task8iris_mem6size_t6size_tPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds a D2H command to the target task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>mem</strong> – source memory object </p></li>
+<li><p><strong>off</strong> – offset in bytes </p></li>
+<li><p><strong>size</strong> – size in bytes </p></li>
+<li><p><strong>host</strong> – target host address </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418iris_task_h2d_full9iris_task8iris_memPv">
+<span id="_CPPv318iris_task_h2d_full9iris_task8iris_memPv"></span><span id="_CPPv218iris_task_h2d_full9iris_task8iris_memPv"></span><span id="iris_task_h2d_full__iris_task.iris_mem.voidP"></span><span class="target" id="iris__runtime_8h_1ae2018699c97c076bab24496f31fa5ef9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_h2d_full</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mem</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">host</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418iris_task_h2d_full9iris_task8iris_memPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds a H2D command with the size of the target memory to the target task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>mem</strong> – target memory object </p></li>
+<li><p><strong>host</strong> – source host address </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418iris_task_d2h_full9iris_task8iris_memPv">
+<span id="_CPPv318iris_task_d2h_full9iris_task8iris_memPv"></span><span id="_CPPv218iris_task_d2h_full9iris_task8iris_memPv"></span><span id="iris_task_d2h_full__iris_task.iris_mem.voidP"></span><span class="target" id="iris__runtime_8h_1a61df91fcfdd100b43b5430c42762eefe"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_d2h_full</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <a class="reference internal" href="#_CPPv48iris_mem" title="iris_mem"><span class="n"><span class="pre">iris_mem</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mem</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">host</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418iris_task_d2h_full9iris_task8iris_memPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds a D2H command with the size of the source memory to the target task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>mem</strong> – source memory object </p></li>
+<li><p><strong>host</strong> – target host address </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_task_kernel9iris_taskPKciP6size_tP6size_tP6size_tiPPvPi">
+<span id="_CPPv316iris_task_kernel9iris_taskPKciP6size_tP6size_tP6size_tiPPvPi"></span><span id="_CPPv216iris_task_kernel9iris_taskPKciP6size_tP6size_tP6size_tiPPvPi"></span><span id="iris_task_kernel__iris_task.cCP.i.sP.sP.sP.i.voidPP.iP"></span><span class="target" id="iris__runtime_8h_1a79484c71da6ecc06eadd20ce1fe097bb"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_kernel</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">kernel</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">off</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">gws</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lws</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nparams</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params_info</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_task_kernel9iris_taskPKciP6size_tP6size_tP6size_tiPPvPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Launch a kernel </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>kernel</strong> – kernel name </p></li>
+<li><p><strong>dim</strong> – dimension </p></li>
+<li><p><strong>off</strong> – global workitem space offsets </p></li>
+<li><p><strong>gws</strong> – global workitem space </p></li>
+<li><p><strong>lws</strong> – local workitem space </p></li>
+<li><p><strong>nparams</strong> – number of kernel parameters </p></li>
+<li><p><strong>params</strong> – kernel parameters </p></li>
+<li><p><strong>params_info</strong> – kernel parameters information </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416iris_task_submit9iris_taskiPKci">
+<span id="_CPPv316iris_task_submit9iris_taskiPKci"></span><span id="_CPPv216iris_task_submit9iris_taskiPKci"></span><span id="iris_task_submit__iris_task.i.cCP.i"></span><span class="target" id="iris__runtime_8h_1a792be9e68b6566233c8959199f4f8254"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_submit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">opt</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sync</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416iris_task_submit9iris_taskiPKci" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Submits a task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – target task </p></li>
+<li><p><strong>device</strong> – device_selector </p></li>
+<li><p><strong>opt</strong> – option string </p></li>
+<li><p><strong>sync</strong> – 0: non-blocking, 1: blocking </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414iris_task_wait9iris_task">
+<span id="_CPPv314iris_task_wait9iris_task"></span><span id="_CPPv214iris_task_wait9iris_task"></span><span id="iris_task_wait__iris_task"></span><span class="target" id="iris__runtime_8h_1a3f6657afa6d2875856e21691e85419a7"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_wait</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414iris_task_wait9iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Waits for the task to complete. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task</strong> – target task </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418iris_task_wait_alliP9iris_task">
+<span id="_CPPv318iris_task_wait_alliP9iris_task"></span><span id="_CPPv218iris_task_wait_alliP9iris_task"></span><span id="iris_task_wait_all__i.iris_taskP"></span><span class="target" id="iris__runtime_8h_1a4daabde338c62832c837f75853862616"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_wait_all</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ntasks</span></span>, <a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tasks</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418iris_task_wait_alliP9iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Waits for all the tasks to complete. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ntasks</strong> – number of tasks </p></li>
+<li><p><strong>tasks</strong> – target tasks array </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417iris_task_release9iris_task">
+<span id="_CPPv317iris_task_release9iris_task"></span><span id="_CPPv217iris_task_release9iris_task"></span><span id="iris_task_release__iris_task"></span><span class="target" id="iris__runtime_8h_1a37f99f72cfb5ec49faf1fceb2bebe8b0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_task_release</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49iris_task" title="iris_task"><span class="n"><span class="pre">iris_task</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417iris_task_release9iris_task" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Releases a target. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task</strong> – target task </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414iris_timer_nowPd">
+<span id="_CPPv314iris_timer_nowPd"></span><span id="_CPPv214iris_timer_nowPd"></span><span id="iris_timer_now__doubleP"></span><span class="target" id="iris__runtime_8h_1aeb19e6846b5b464a1c419728affdeb26"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iris_timer_now</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">time</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414iris_timer_nowPd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns current time in seconds. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time</strong> – pointer of time </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</section>
+<section id="cpp-api">
+<span id="id2"></span><h1>C++ API<a class="headerlink" href="#cpp-api" title="Permalink to this heading"></a></h1>
+</section>
+<section id="fortran-api">
+<span id="id3"></span><h1>Fortran API<a class="headerlink" href="#fortran-api" title="Permalink to this heading"></a></h1>
+</section>
+<section id="python-api">
+<span id="id4"></span><h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this heading"></a></h1>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="started.html" class="btn btn-neutral float-left" title="Hello World" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Platform Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Oak Ridge National Laboratory.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

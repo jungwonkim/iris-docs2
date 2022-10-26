@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World &mdash; IRIS  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/contentui.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="C API" href="api.html" />
+    <link rel="prev" title="Build from Source" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> IRIS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Build from Source</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hello World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#host-code">Host Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kernels">Kernels</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#saxpy">SAXPY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Host Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Kernels</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">IRIS API Specification</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#cpp-api">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#fortran-api">Fortran API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">IRIS Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Platform Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#memory-model">Memory Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#programming-model">Programming Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#execution-model">Execution Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#task">Task</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Citation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IRIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Hello World</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hello-world">
+<span id="index-0"></span><h1>Hello World<a class="headerlink" href="#hello-world" title="Permalink to this heading"></a></h1>
+<p>Setting the following environment variables is highly recommended to make life easier.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">IRIS</span><span class="o">=</span>&lt;install_path&gt; <span class="c1"># install_path would be $HOME/.local</span>
+$ <span class="nb">export</span> <span class="nv">CPATH</span><span class="o">=</span><span class="nv">$CPATH</span>:<span class="nv">$IRIS</span>/include
+$ <span class="nb">export</span> <span class="nv">LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LIBRARY_PATH</span>:<span class="nv">$IRIS</span>/lib:<span class="nv">$IRIS</span>/lib64
+$ <span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="nv">$IRIS</span>/lib:<span class="nv">$IRIS</span>/lib64
+$ <span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="nv">$IRIS</span>/include
+</pre></div>
+</div>
+<p>The “Hello World” program is the first step towards learning IRIS. This program displays the message “HELLO WORLD” on the screen.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> iris/apps/helloworld
+$ make
+$ ./helloworld
+HELLO WORLD
+$
+</pre></div>
+</div>
+<section id="host-code">
+<h2>Host Code<a class="headerlink" href="#host-code" title="Permalink to this heading"></a></h2>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">C</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span><span class="w"></span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_mem</span><span class="w"> </span><span class="n">mem_a</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem</span><span class="w"> </span><span class="n">mem_b</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_create</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_a</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_create</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_b</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_task</span><span class="w"> </span><span class="n">task</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_h2d</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="n">mem_a</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mem_b</span><span class="p">,</span><span class="w"> </span><span class="n">mem_a</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">params_info</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">iris_w</span><span class="p">,</span><span class="w"> </span><span class="n">iris_r</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_kernel</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;uppercase&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">params_info</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_d2h</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="n">mem_b</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_submit</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="n">iris_roundrobin</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_task_release</span><span class="p">(</span><span class="n">task</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_release</span><span class="p">(</span><span class="n">mem_a</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_release</span><span class="p">(</span><span class="n">mem_b</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_finalize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">C++</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span><span class="w"></span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Platform</span><span class="w"> </span><span class="n">platform</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">platform</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Mem</span><span class="w"> </span><span class="n">mem_a</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Mem</span><span class="w"> </span><span class="n">mem_b</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Task</span><span class="w"> </span><span class="n">task</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">h2d</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_a</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_a</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">params_info</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">iris_w</span><span class="p">,</span><span class="w"> </span><span class="n">iris_r</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">kernel</span><span class="p">(</span><span class="s">&quot;uppercase&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">params_info</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">d2h</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_b</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">submit</span><span class="p">(</span><span class="n">iris_roundrobin</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">platform</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="kernels">
+<h2>Kernels<a class="headerlink" href="#kernels" title="Permalink to this heading"></a></h2>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">CUDA</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">uppercase</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">HIP</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hip/hip_runtime.h&gt;</span><span class="cp"></span>
+
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">uppercase</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab3">
+<p class="tab-title">OpenCL</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">__kernel</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">uppercase</span><span class="p">(</span><span class="n">__global</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">__global</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_global_id</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab4">
+<p class="tab-title">OpenMP</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris_openmp.h&gt;</span><span class="cp"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">uppercase</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_OPENMP_KERNEL_ARGS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#pragma omp parallel for shared(b, a) private(i)</span>
+<span class="w">  </span><span class="n">IRIS_OPENMP_KERNEL_BEGIN</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_OPENMP_KERNEL_END</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab5">
+<p class="tab-title">Hexagon</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris_hexagon_imp.h&gt;</span><span class="cp"></span>
+
+<span class="n">AEEResult</span><span class="w"> </span><span class="nf">irishexagon_uppercase</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">blen</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">alen</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_HEXAGON_KERNEL_ARGS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">int32</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_HEXAGON_KERNEL_BEGIN</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_HEXAGON_KERNEL_END</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">AEE_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="saxpy">
+<span id="index-1"></span><h1>SAXPY<a class="headerlink" href="#saxpy" title="Permalink to this heading"></a></h1>
+<p>SAXPY stands for “Single-precision A * X Plus Y”. It is a combination of scalar multiplication and vector addition.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> iris/apps/saxpy
+$ make
+$ ./saxpy-c
+X <span class="o">[</span>  <span class="m">0</span>.  <span class="m">1</span>.  <span class="m">2</span>.  <span class="m">3</span>.  <span class="m">4</span>.  <span class="m">5</span>.  <span class="m">6</span>.  <span class="m">7</span>.<span class="o">]</span>
+Y <span class="o">[</span>  <span class="m">0</span>.  <span class="m">1</span>.  <span class="m">2</span>.  <span class="m">3</span>.  <span class="m">4</span>.  <span class="m">5</span>.  <span class="m">6</span>.  <span class="m">7</span>.<span class="o">]</span>
+<span class="nv">S</span> <span class="o">=</span> <span class="m">10</span>.000000 * X + Y <span class="o">[</span>   <span class="m">0</span>.  <span class="m">11</span>.  <span class="m">22</span>.  <span class="m">33</span>.  <span class="m">44</span>.  <span class="m">55</span>.  <span class="m">66</span>.  <span class="m">77</span>.<span class="o">]</span>
+$
+</pre></div>
+</div>
+<section id="id1">
+<h2>Host Code<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">C</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;malloc.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">TARGET</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">VERBOSE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">Z</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">ERROR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">atol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">TARGET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">atol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">VERBOSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">atol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[%s:%d] SIZE[%zu] TARGET[%d] VERBOSE[%d]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FILE__</span><span class="p">,</span><span class="w"> </span><span class="n">__LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">TARGET</span><span class="p">,</span><span class="w"> </span><span class="n">VERBOSE</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;X [&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %2.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Y [&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %2.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_mem</span><span class="w"> </span><span class="n">mem_X</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem</span><span class="w"> </span><span class="n">mem_Y</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem</span><span class="w"> </span><span class="n">mem_Z</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_create</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_create</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_create</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_Z</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_task</span><span class="w"> </span><span class="n">task0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_h2d_full</span><span class="p">(</span><span class="n">task0</span><span class="p">,</span><span class="w"> </span><span class="n">mem_X</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_h2d_full</span><span class="p">(</span><span class="n">task0</span><span class="p">,</span><span class="w"> </span><span class="n">mem_Y</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">saxpy_params</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mem_Z</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">mem_X</span><span class="p">,</span><span class="w"> </span><span class="n">mem_Y</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">saxpy_params_info</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">iris_w</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="w"> </span><span class="n">iris_r</span><span class="p">,</span><span class="w"> </span><span class="n">iris_r</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_kernel</span><span class="p">(</span><span class="n">task0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;saxpy&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">saxpy_params</span><span class="p">,</span><span class="w"> </span><span class="n">saxpy_params_info</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_d2h_full</span><span class="p">(</span><span class="n">task0</span><span class="p">,</span><span class="w"> </span><span class="n">mem_Z</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_task_submit</span><span class="p">(</span><span class="n">task0</span><span class="p">,</span><span class="w"> </span><span class="n">TARGET</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="n">ERROR</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;S = %f * X + Y [&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %3.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_mem_release</span><span class="p">(</span><span class="n">mem_X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_release</span><span class="p">(</span><span class="n">mem_Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris_mem_release</span><span class="p">(</span><span class="n">mem_Z</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">Z</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_task_release</span><span class="p">(</span><span class="n">task0</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris_finalize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">C++</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;malloc.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Platform</span><span class="w"> </span><span class="n">platform</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">platform</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">Z</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">ERROR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">nteams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">chunk_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">nteams</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">atol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;X [&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %2.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Y [&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %2.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Mem</span><span class="w"> </span><span class="n">mem_X</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Mem</span><span class="w"> </span><span class="n">mem_Y</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Mem</span><span class="w"> </span><span class="n">mem_Z</span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">iris</span><span class="o">::</span><span class="n">Task</span><span class="w"> </span><span class="n">task</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">h2d_full</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_X</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">h2d_full</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_Y</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">params0</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_Z</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_Y</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">pinfo0</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">iris_w</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="w"> </span><span class="n">iris_r</span><span class="p">,</span><span class="w"> </span><span class="n">iris_r</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">kernel</span><span class="p">(</span><span class="s">&quot;saxpy&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">params0</span><span class="p">,</span><span class="w"> </span><span class="n">pinfo0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">d2h_full</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_Z</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">task</span><span class="p">.</span><span class="n">submit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="n">ERROR</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;S = %f * X + Y [&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %3.0f.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">X</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">Y</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">Z</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">platform</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab3">
+<p class="tab-title">Fortran</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">PROGRAM </span><span class="n">SAXPY</span><span class="w"></span>
+<span class="w">    </span><span class="k">USE </span><span class="n">IRIS</span><span class="w"></span>
+<span class="w">    </span><span class="k">IMPLICIT NONE</span>
+
+<span class="k">    </span><span class="kt">INTEGER</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(:),</span><span class="k">ALLOCATABLE</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">Z</span><span class="w"></span>
+<span class="w">    </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(:),</span><span class="k">ALLOCATABLE</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">X</span><span class="w"></span>
+<span class="w">    </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(:),</span><span class="k">ALLOCATABLE</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">Y</span><span class="w"></span>
+<span class="w">    </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">A</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">MEM_Z</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">MEM_X</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">MEM_Y</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">OFF</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">GWS</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">LWS</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">NPARAMS</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="k">DIMENSION</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">PARAMS</span><span class="w"></span>
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">,</span><span class="k">DIMENSION</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">PARAMS_INFO</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">INTEGER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">TASK</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_INIT</span><span class="p">(.</span><span class="n">TRUE</span><span class="p">.,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">IERROR</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">IRIS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">        PRINT</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;FAILED AT INIT&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="k">ENDIF</span>
+
+<span class="k">    </span><span class="n">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">ALLOCATE</span><span class="p">(</span><span class="n">Z</span><span class="p">(</span><span class="n">SIZE</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">ALLOCATE</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">SIZE</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">ALLOCATE</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">SIZE</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="mf">0.0</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">DO </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">        </span><span class="n">X</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span><span class="w"></span>
+<span class="w">        </span><span class="n">Y</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span><span class="w"></span>
+<span class="w">    </span><span class="k">ENDDO</span>
+
+<span class="k">    DO </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">        </span><span class="k">PRINT</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;X[&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;] &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">ENDDO</span>
+
+<span class="k">    PRINT</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;===&#39;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">DO </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">        </span><span class="k">PRINT</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Y[&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;] &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">ENDDO</span>
+
+<span class="k">    CALL </span><span class="n">IRIS_MEM_CREATE</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_X</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_MEM_CREATE</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_Y</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_MEM_CREATE</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_Z</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_CREATE</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">OFF</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="n">GWS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">    </span><span class="n">LWS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">    </span><span class="n">NPARAMS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="w">    </span><span class="n">PARAMS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="w"> </span><span class="n">MEM_Z</span><span class="p">,</span><span class="w"> </span><span class="nb">TRANSFER</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">TASK</span><span class="p">),</span><span class="w"> </span><span class="n">MEM_X</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_Y</span><span class="w"> </span><span class="o">/</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">PARAMS_INFO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="w"> </span><span class="n">IRIS_RW</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_R</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_R</span><span class="w"> </span><span class="o">/</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_H2D_FULL</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_X</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_H2D_FULL</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_Y</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_KERNEL</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;saxpy&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">OFF</span><span class="p">,</span><span class="w"> </span><span class="n">GWS</span><span class="p">,</span><span class="w"> </span><span class="n">LWS</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
+<span class="w">      </span><span class="n">NPARAMS</span><span class="p">,</span><span class="w"> </span><span class="n">PARAMS</span><span class="p">,</span><span class="w"> </span><span class="n">PARAMS_INFO</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_D2H_FULL</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="n">MEM_Z</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_TASK_SUBMIT</span><span class="p">(</span><span class="n">TASK</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_GPU</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">TRUE</span><span class="p">.,</span><span class="w"> </span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">DO </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">SIZE</span><span class="w"></span>
+<span class="w">        </span><span class="k">PRINT</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Z[&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;] &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">ENDDO</span>
+
+<span class="k">    DEALLOCATE</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">DEALLOCATE</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">DEALLOCATE</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">CALL </span><span class="n">IRIS_FINALIZE</span><span class="p">(</span><span class="n">IERROR</span><span class="p">)</span><span class="w"></span>
+
+<span class="k">END PROGRAM </span><span class="n">SAXPY</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab4">
+<p class="tab-title">Python</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="kn">import</span> <span class="nn">iris</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mf">10.0</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">mem_x</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">mem</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">mem_y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">mem</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">mem_s</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">mem</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">task</span><span class="p">()</span>
+<span class="n">task</span><span class="o">.</span><span class="n">h2d_full</span><span class="p">(</span><span class="n">mem_x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">h2d_full</span><span class="p">(</span><span class="n">mem_y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="s2">&quot;saxpy&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="n">SIZE</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[</span><span class="n">mem_s</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">mem_x</span><span class="p">,</span> <span class="n">mem_y</span><span class="p">]</span> <span class="p">,</span> <span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">iris_w</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">iris_r</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">iris_r</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">d2h_full</span><span class="p">(</span><span class="n">mem_s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">iris_gpu</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;S =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="s1">&#39;* X + Y&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>Kernels<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">CUDA</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">HIP</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hip/hip_runtime.h&gt;</span><span class="cp"></span>
+
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab3">
+<p class="tab-title">OpenCL</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">__kernel</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy</span><span class="p">(</span><span class="n">__global</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">__global</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">__global</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_global_id</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab4">
+<p class="tab-title">OpenMP</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris_openmp.h&gt;</span><span class="cp"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">saxpy</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_OPENMP_KERNEL_ARGS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#pragma omp parallel for shared(S, A, X, Y) private(i)</span>
+<span class="w">  </span><span class="n">IRIS_OPENMP_KERNEL_BEGIN</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_OPENMP_KERNEL_END</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab5">
+<p class="tab-title">Hexagon</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iris/iris_hexagon_imp.h&gt;</span><span class="cp"></span>
+
+<span class="n">AEEResult</span><span class="w"> </span><span class="nf">irishexagon_saxpy</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Slen</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Xlen</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Ylen</span><span class="p">,</span><span class="w"> </span><span class="n">IRIS_HEXAGON_KERNEL_ARGS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">int32</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_HEXAGON_KERNEL_BEGIN</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">IRIS_HEXAGON_KERNEL_END</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">AEE_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Build from Source" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="C API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Oak Ridge National Laboratory.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
